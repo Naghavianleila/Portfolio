@@ -801,174 +801,16 @@ img {
 }
 
 .pub-card__year {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-primary);
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(8px);
+  background: rgba(139, 92, 246, 0.12);
   border: 1px solid var(--border-accent);
   padding: 4px 10px;
   border-radius: var(--radius-full);
-}
-
-.pub-card__image {
-  position: relative;
-  margin: 0;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.pub-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.pub-card__image--empty img {
-  opacity: 0;
-  position: absolute;
-  inset: 0;
-}
-
-.pub-card__image-fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(217, 70, 239, 0.06));
-}
-
-.pub-card__image-fallback svg {
-  width: 48px;
-  height: 48px;
-  color: var(--purple-400);
-  opacity: 0.5;
-}
-
-.pub-card__image:not(.pub-card__image--empty) .pub-card__image-fallback {
-  display: none;
-}
-
-.pub-card__image-hint {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  padding: 8px 12px;
-  font-size: 0.625rem;
-  color: var(--text-muted);
-  text-align: center;
-  background: rgba(10, 10, 15, 0.75);
-  backdrop-filter: blur(4px);
-  border-top: 1px dashed var(--border-accent);
-  transition: opacity var(--transition);
-}
-
-.pub-card__image-hint code {
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  color: var(--magenta-400);
-  word-break: break-all;
-}
-
-.pub-card__image:not(.pub-card__image--empty) .pub-card__image-hint {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.pub-card__pdf {
-  position: relative;
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border);
-}
-
-.pub-card__pdf-viewer {
-  display: block;
-  width: 100%;
-  height: 220px;
-  border: none;
-  background: #1a1a24;
-}
-
-.pub-card__pdf-hint {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  padding: 8px 12px;
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-  background: rgba(139, 92, 246, 0.06);
-  border-top: 1px dashed var(--border-accent);
-}
-
-.pub-card__pdf-hint svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  color: var(--purple-400);
-}
-
-.pub-card__pdf-hint code {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  color: var(--magenta-400);
-  word-break: break-all;
-}
-
-.pub-card__pdf-actions {
-  display: flex;
-  gap: 8px;
-  padding: 10px 12px;
-  background: var(--bg-elevated);
-  border-top: 1px solid var(--border);
-}
-
-.pub-card__pdf-btn {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: white;
-  background: var(--gradient-main);
-  border-radius: var(--radius-sm);
-  transition: opacity var(--transition), transform var(--transition);
-}
-
-.pub-card__pdf-btn svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-}
-
-.pub-card__pdf-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.pub-card__pdf-btn--ghost {
-  color: var(--purple-400);
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid var(--border-accent);
-}
-
-.pub-card__pdf-btn--ghost:hover {
-  background: rgba(139, 92, 246, 0.18);
+  margin-bottom: 12px;
 }
 
 .pub-card__body {
@@ -1272,28 +1114,44 @@ a.contact-detail:hover {
   .nav {
     padding-left: env(safe-area-inset-left, 0);
     padding-right: env(safe-area-inset-right, 0);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 10, 15, 0.95);
+  }
+
+  .nav.nav--open {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .nav__inner {
+    position: relative;
+    z-index: 2;
   }
 
   .nav__toggle {
     display: flex;
+    position: relative;
+    z-index: 3;
   }
 
   .nav__links {
-    position: fixed;
+    position: absolute;
     top: var(--nav-height);
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 1;
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
     background: rgba(10, 10, 15, 0.98);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     padding: 16px var(--container-padding) max(24px, env(safe-area-inset-bottom, 0px));
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
@@ -1316,6 +1174,11 @@ a.contact-detail:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav__links li {
+    width: 100%;
   }
 
   .nav__toggle.active span:nth-child(1) {
@@ -1417,23 +1280,6 @@ a.contact-detail:hover {
 
   .pub-card {
     min-width: 0;
-  }
-
-  .pub-card__pdf-viewer {
-    height: 180px;
-  }
-
-  .pub-card__pdf-hint {
-    flex-wrap: wrap;
-    font-size: 0.625rem;
-  }
-
-  .pub-card__pdf-actions {
-    flex-direction: column;
-  }
-
-  .pub-card__pdf-btn {
-    min-height: 44px;
   }
 
   .contact-form {
@@ -1548,8 +1394,7 @@ a.contact-detail:hover {
   }
 
   .btn--primary:hover,
-  .btn--ghost:hover,
-  .pub-card__pdf-btn:hover {
+  .btn--ghost:hover {
     transform: none;
   }
 }

@@ -10,6 +10,7 @@
   function setNavOpen(isOpen) {
     navLinks.classList.toggle('open', isOpen);
     navToggle.classList.toggle('active', isOpen);
+    nav.classList.toggle('nav--open', isOpen);
     navToggle.setAttribute('aria-expanded', String(isOpen));
     document.body.classList.toggle('nav-open', isOpen);
   }
@@ -35,36 +36,25 @@
     }
   }
 
-  // Publication cover images
-  document.querySelectorAll('.pub-card__image img').forEach((img) => {
-    const figure = img.closest('.pub-card__image');
-    const markLoaded = () => figure?.classList.remove('pub-card__image--empty');
-    const markEmpty = () => figure?.classList.add('pub-card__image--empty');
-
-    img.addEventListener('load', () => {
-      if (img.naturalWidth > 0) markLoaded();
-    });
-    img.addEventListener('error', markEmpty);
-
-    if (img.complete) {
-      img.naturalWidth > 0 ? markLoaded() : markEmpty();
-    }
-  });
-
   // Sticky nav background on scroll
   window.addEventListener('scroll', () => {
     nav.classList.toggle('nav--scrolled', window.scrollY > 40);
   });
 
   // Mobile menu toggle
-  navToggle.addEventListener('click', () => {
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     setNavOpen(!navLinks.classList.contains('open'));
   });
 
   // Close mobile menu on link click
   navLinks.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeNav);
+    link.addEventListener('click', () => {
+      closeNav();
+    });
   });
+
+  document.querySelector('.nav__logo')?.addEventListener('click', closeNav);
 
   // Close menu on escape or outside click
   document.addEventListener('keydown', (e) => {
