@@ -54,8 +54,6 @@
     });
   });
 
-  document.querySelector('.nav__logo')?.addEventListener('click', closeNav);
-
   // Close menu on escape or outside click
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeNav();

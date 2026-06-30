@@ -122,23 +122,8 @@ img {
 .nav__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
-}
-
-.nav__logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.05em;
-}
-
-.nav__logo-mark {
-  color: var(--purple-400);
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
 }
 
 .nav__links {
@@ -247,9 +232,9 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(var(--nav-height) + 40px) 0 80px;
-  padding-bottom: max(80px, env(safe-area-inset-bottom, 0px));
-  overflow: hidden;
+  padding: calc(var(--nav-height) + 40px) 0 112px;
+  padding-bottom: max(112px, env(safe-area-inset-bottom, 0px));
+  overflow-x: clip;
 }
 
 .hero__glow {
@@ -399,11 +384,16 @@ img {
 }
 
 .hero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 32px;
   padding-top: 40px;
+  margin-bottom: 24px;
   border-top: 1px solid var(--border);
+}
+
+.stat {
+  min-width: 0;
 }
 
 .stat__value {
@@ -417,15 +407,18 @@ img {
 }
 
 .stat__label {
-  font-size: 0.8125rem;
+  display: block;
+  font-size: 0.75rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-wrap: balance;
 }
 
 .hero__scroll {
   position: absolute;
-  bottom: 40px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -436,6 +429,8 @@ img {
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hero__scroll-line {
@@ -1024,11 +1019,6 @@ a.contact-detail:hover {
   color: var(--text-muted);
 }
 
-.footer__mono {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-}
-
 /* ---- Animations (scroll reveal) ---- */
 .reveal {
   opacity: 0;
@@ -1042,6 +1032,22 @@ a.contact-detail:hover {
 }
 
 /* ---- Responsive ---- */
+
+/* Narrow desktop — stats sit in a tighter text column beside the photo */
+@media (max-width: 1280px) and (min-width: 1101px) {
+  .hero__stats {
+    gap: 16px 20px;
+  }
+
+  .stat__value {
+    font-size: 1.75rem;
+  }
+
+  .stat__label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+  }
+}
 
 /* Large tablet & small desktop */
 @media (max-width: 1100px) {
@@ -1066,8 +1072,10 @@ a.contact-detail:hover {
   }
 
   .hero__stats {
-    justify-content: center;
+    justify-items: center;
     width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
   }
 
   .hero__photo {
@@ -1128,6 +1136,7 @@ a.contact-detail:hover {
   .nav__inner {
     position: relative;
     z-index: 2;
+    justify-content: flex-end;
   }
 
   .nav__toggle {
@@ -1219,8 +1228,9 @@ a.contact-detail:hover {
   }
 
   .hero__stats {
-    gap: 24px 32px;
+    gap: 20px 24px;
     padding-top: 32px;
+    margin-bottom: 16px;
   }
 
   .stat__value {
@@ -1324,13 +1334,14 @@ a.contact-detail:hover {
   }
 
   .hero__stats {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
     gap: 20px;
   }
 
   .stat {
     text-align: center;
+    max-width: 280px;
   }
 
   .section__header {
@@ -1370,10 +1381,6 @@ a.contact-detail:hover {
 
 /* Very small phones */
 @media (max-width: 360px) {
-  .nav__logo span:last-child {
-    font-size: 1rem;
-  }
-
   .hero__eyebrow {
     letter-spacing: 0.04em;
   }
